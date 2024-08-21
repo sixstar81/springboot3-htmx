@@ -6,7 +6,7 @@
         <script src = "https://unpkg.dev/htmx.org@2.0.1"></script>
     </head>
 <body>
-<div th:fragment="todos" class="todos-list">
+<div th:fragment="todos" class="todos-list" >
     <H2>Todo</H2>
     <div th:each="todo: ${todos}" class="todo">
         <button
@@ -17,7 +17,18 @@
         >delete</button> | <span th:text="${todo.id}">ID</span> | <span th:text="${todo.title}">title</span>
     </div>
 </div>
+<div id="todos-form" th:fragment="todos-form" hx-swap-oob="true">
+    <h2>Add Todo</h2>
+    <input type="text" name="new-todo" id="new-todo"/>
+    <button
+            hx-post="/todo"
+            hx-include="#new-todo"
+            hx-target=".todos-list"
+            hx-trigger="click"
+    >Add</button>
 
+
+</div>
 </body>
 
 </html>

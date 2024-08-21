@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import io.github.wimdeblauwe.htmx.spring.boot.mvc.HtmxResponse;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,16 @@ class TodoController{
 				.filter(todo -> todo.id().equals(todoId))
 				.forEach(this.todos::remove);
 		return "";
+	}
+
+	@PostMapping
+	HtmxResponse add(@RequestParam("new-todo") String newTodo, Model model) {
+		this.todos.add(Todos.todo(newTodo));
+		model.addAttribute("todos", this.todos);
+		return HtmxResponse.builder()
+				.view("todo :: todos")
+				.view("todo :: todos-form")
+				.build();
 	}
 }
 
