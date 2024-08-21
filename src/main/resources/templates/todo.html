@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>todo</title>
+        <script src = "https://unpkg.dev/htmx.org@2.0.1"></script>
+    </head>
+<body>
+<div th:fragment="todos" class="todos-list">
+    <H2>Todo</H2>
+    <div th:each="todo: ${todos}" class="todo">
+        <button
+                th:attr="hx-delete=@{/todo/{id}(id=${todo.id})}"
+                hx-confirm="are you sure?"
+                hx-trigger="click"
+                hx-target="closest .todo"
+        >delete</button> | <span th:text="${todo.id}">ID</span> | <span th:text="${todo.title}">title</span>
+
+    </div>
+</div>
+
+</body>
+
+</html>
