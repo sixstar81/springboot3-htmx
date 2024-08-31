@@ -41,7 +41,7 @@ class TodoController{
 
 	@DeleteMapping("/{todoId}")
 	@ResponseBody
-	String delete(@PathVariable String todoId){
+	String delete(@PathVariable Integer todoId){
 		this.todos.stream()
 				.filter(todo -> todo.id().equals(todoId))
 				.forEach(this.todos::remove);
